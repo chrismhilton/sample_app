@@ -21,6 +21,12 @@ end
 group :test do
   gem 'rspec', '2.0.1'
   gem 'webrat', '0.7.1'
+
+  # needed to run 'bundle exec autotest'
+  gem 'autotest'
+  gem 'autotest-growl'
+  gem 'autotest-notification'
+  gem 'autotest-rails-pure'
 end
 
 # Use unicorn as the web server

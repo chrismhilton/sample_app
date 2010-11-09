@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>SampleApp</title>
-  <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
-  <%= csrf_meta_tag %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <!--
+    Application site layout - way to factor out common elements into a global layout
+    with the body contents inserted on a per-page basis.
+    The title is set using instance variable defined in controller
+    using Embedded Ruby (ERb) hence the file extension ".erb".
+    When we visit /pages/home, Rails executes the body of the home action,
+    which makes the assignment @title = "Home".
+    Rails then renders the view, using ERb to insert the value of @title into the template,
+    which the web server then sends to your browser as HTML
+    -->
+    <title>Ruby on Rails Tutorial Sample App | <%= @title %></title>
+    <!--
+    Rails method csrf_meta_tag to prevent cross-site request forgery (CSRF), a type of malicious web attack
+    -->
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <!--
+    "yield" is responsible for inserting the contents of ach page into the site-wide layout
+    -->
+    <%= yield %>
+  </body>
 </html>
