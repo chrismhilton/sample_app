@@ -16,6 +16,11 @@ module ApplicationHelper
     end
   end
 
+  # Return logo image tag using Rails helper "image_tag" (passing has of options)
+  def logo
+    image_tag("logo.png", :alt => "Sample App", :class => "round")
+  end
+
   #
   # Strings and Objects
   #
