@@ -1,0 +1,27 @@
+<!-- a partial for stylesheet includes -->
+
+<!--
+Since the HTML5 standard is new, some browsers (especially Internet Explorer) don’t yet fully support it,
+so we include some JavaScript code (known as an “HTML5 shiv”) to work around the issue.
+Uses conditional comment supported by Internet Explorer browsers
+so the enclosed line is only included if the version of IE is less than 9.
+-->
+
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!--
+Include stylesheets on application pages
+using built-in Rails helper "stylesheet_link_tag"
+(the helper automatically appends the .css extension to the filenames);
+Each line calls the stylesheet_link_tag function with two arguments:
+a string, indicating the path to the stylesheet,
+and a hash, indicating the media type (’screen’ for the computer screen and ’print’ for a printed version).
+Because of the surrounding brackets <& and %>, the results are inserted into the template by ERb
+-->
+
+<%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+<%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
+<!--[if lt IE 8]><%= stylesheet_link_tag 'blueprint/ie' %><![endif]-->
+<%= stylesheet_link_tag 'custom', :media => 'screen' %>

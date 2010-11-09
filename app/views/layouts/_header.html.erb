@@ -1,0 +1,21 @@
+<!-- a partial for the site header -->
+
+<!-- header element containing logo and site navigation -->
+<header>
+  <!--
+  Rails helper "image_tag" passed hash of options
+  defines the local variable logo for the logo image tag, and then links to it in the next line
+  NB: first line doesn't have = sign as don't want the line inserted into the template
+  -->
+  <% logo = image_tag("logo.png", :alt => "Sample App", :class => "round") %>
+  <%= link_to logo, root_path %>
+  <nav class="round">
+    <!-- unordered list (ul) containing list items (li) -->
+    <ul>
+      <!-- Rails helper "link_to" with link text and named route -->
+      <li><%= link_to "Home", root_path %></li>
+      <li><%= link_to "Help", help_path %></li>
+      <li><%= link_to "Sign in", '#' %></li>
+    </ul>
+  </nav>
+</header>

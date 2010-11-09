@@ -1,14 +1,22 @@
 SampleApp::Application.routes.draw do
 
+  get "users/new"
+
   # Original routes
   #get "pages/home"
   #get "pages/contact"
   #get "pages/about"
   #get "pages/help"
 
+  # Match also automatically creates named routes for use in the controllers and views:
+  # about_path => '/about'
+  # about_url  => 'http://localhost:3000/about'
+
   match '/contact', :to => 'pages#contact'
   match '/about',   :to => 'pages#about'
   match '/help',    :to => 'pages#help'
+  
+  match '/signup',  :to => 'users#new'
 
   root :to => 'pages#home'
 
