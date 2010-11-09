@@ -53,6 +53,11 @@ module ApplicationHelper
     "      ".empty?   # => false
     "      ".blank?   # => true
     nil.blank?        # => true
+
+    # from exercise:
+    s = 'abc_def_ghi_jkl_mno_pqr_stu_vwx_yz'
+    s.split('_').shuffle.join(':')
+    s.split('').shuffle.join(':')
   end
 
   #

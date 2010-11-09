@@ -7,3 +7,9 @@ Interior content of the page used by the system-wide layout in "application.html
   <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
   sample application.
 </p>
+
+<!--
+Rails helper "link_to" with options hashes,
+in this case used to add a couple of CSS classes to the anchor tag separated by a space
+-->
+<%= link_to "Sign up now!", '#', :class => "signup_button round" %>
