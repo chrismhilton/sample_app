@@ -4,6 +4,7 @@ class PagesController < ApplicationController
     # create instance variable and assign page title
     # in Rails their role is primarily to link actions and views
     # any instance variable defined in the home action is automatically available in the "home.html.erb" view
+    # instance variables are nil if not defined
     @title = "Home"
   end
 

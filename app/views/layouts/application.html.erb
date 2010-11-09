@@ -4,18 +4,32 @@
     <!--
     Application site layout - way to factor out common elements into a global layout
     with the body contents inserted on a per-page basis.
-    The title is set using instance variable defined in controller
-    using Embedded Ruby (ERb) hence the file extension ".erb".
+
+    The title is set using the application helper method (without the @ sign).
+
+    The title can also be set using an instance variable defined in the controller
+    using Embedded Ruby (ERb) hence the file extension ".erb" ie. @title
     When we visit /pages/home, Rails executes the body of the home action,
     which makes the assignment @title = "Home".
     Rails then renders the view, using ERb to insert the value of @title into the template,
     which the web server then sends to your browser as HTML
     -->
-    <title>Ruby on Rails Tutorial Sample App | <%= @title %></title>
+    <title><%= title %></title>
     <!--
     Rails method csrf_meta_tag to prevent cross-site request forgery (CSRF), a type of malicious web attack
     -->
     <%= csrf_meta_tag %>
+    <!--
+    Include stylesheets on application pages
+    using built-in Rails helper "stylesheet_link_tag"
+    (the helper automatically appends the .css extension to the filenames);
+    Each line calls the stylesheet_link_tag function with two arguments:
+    a string, indicating the path to the stylesheet,
+    and a hash, indicating the media type (’screen’ for the computer screen and ’print’ for a printed version).
+    Because of the surrounding brackets with &, the results are inserted into the template by ERb
+    -->
+    <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+    <%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
   </head>
   <body>
     <!--
