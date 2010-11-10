@@ -8,6 +8,9 @@ gem 'rails', '3.0.0'
 # change to prevent heroku from trying to load the sqlite3-ruby gem
 gem 'sqlite3-ruby', '1.2.5', :group => :development #:require => 'sqlite3'
 
+# gem to handle each user’s Gravatar which is a 'globally recognized avatar'
+gem 'gravatar_image_tag', '0.1.0'
+
 #
 # include the gems for RSpec and the RSpec library specific to Rails
 #
@@ -20,9 +23,12 @@ group :development do
 end
 
 # include rspec in test mode in order to run tests
+# include factory girl in order to create factories
+# which are a convenient way to define objects and insert them into our test database
 group :test do
   gem 'rspec', '2.0.1'
   gem 'webrat', '0.7.1'
+  gem 'factory_girl_rails', '1.0'
 
   # needed to run 'bundle exec autotest'
   gem 'autotest'
