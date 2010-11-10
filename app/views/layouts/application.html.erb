@@ -49,6 +49,10 @@
       Rails helper "render" to look for a partial file called "app/views/layouts/_footer.html.erb"
       -->
       <%= render 'layouts/footer' %>
+      <!--
+      add debug info to site layout only in development environment
+      -->
+      <%= debug(params) if Rails.env.development? %>
     </div>
   </body>
 </html>

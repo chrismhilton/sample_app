@@ -207,6 +207,11 @@ module ApplicationHelper
     params                            # => {:user=>{:name=>"Michael Hartl", :email=>"mhartl@example.com"}}
     params[:user][:email]             # => "mhartl@example.com"
 
+    # Hash brackets are optional for the final argument in a method
+    # so these two lines are equivalent
+    user.update_attributes(:name => "The Dude", :email => "dude@abides.org")
+    user.update_attributes( { :name => "The Dude", :email => "dude@abides.org" } )
+
     # As with arrays and ranges, hashes respond to the each method
     # with a block that takes two variables
     # the each method for a hash iterates through the hash one key-value pair at a time

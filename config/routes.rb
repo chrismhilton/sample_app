@@ -1,6 +1,8 @@
 SampleApp::Application.routes.draw do
 
-  get "users/new"
+  # endows our sample application with all the actions needed for a RESTful Users resource (index, show, new ...)
+  # along with a large number of named routes for generating user URLs (users_path, user_path(1), new_user_path ...)
+  resources :users
 
   # Original routes
   #get "pages/home"

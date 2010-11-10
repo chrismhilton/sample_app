@@ -13,8 +13,10 @@ gem 'sqlite3-ruby', '1.2.5', :group => :development #:require => 'sqlite3'
 #
 
 # include rspec in development mode for access to the RSpec-specific generators
+# include gem to annotate models in development (not needed in production applications)
 group :development do
   gem 'rspec-rails', '2.0.1'
+  gem 'annotate-models', '1.0.4'
 end
 
 # include rspec in test mode in order to run tests

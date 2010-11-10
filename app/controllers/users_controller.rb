@@ -4,4 +4,9 @@ class UsersController < ApplicationController
     @title = "Sign up"
   end
 
+  def show
+    # using the standard Rails params object to retrieve the user id
+    @user = User.find(params[:id])
+  end
+
 end
