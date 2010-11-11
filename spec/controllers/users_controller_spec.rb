@@ -47,15 +47,78 @@ describe UsersController do
   end
 
   describe "GET 'new'" do
+
     it "should be successful" do
-      get 'new'
+      get :new # 'new'
       response.should be_success
     end
+
+    it "should have the correct title" do
+      get :new
+      response.should have_selector("title", :content => "Sign up")
+    end
+
   end
 
-  it "should have the correct title" do
-    get 'new'
-    response.should have_selector("title", :content => "Sign up")
+  describe "POST 'create'" do
+
+    describe "failure" do
+
+      before(:each) do
+        @attr = { :name => "", :email => "", :password => "",
+                  :password_confirmation => "" }
+      end
+
+      # verify that a failed create action doesn't create a user in the database
+      # RSpec change method to return the change in the number of users in the database
+      # Ruby construct 'lambda' allows check that test doesn't change the User count
+      it "should not create a user" do
+        lambda do
+          post :create, :user => @attr
+        end.should_not change(User, :count)
+      end
+
+      it "should have the right title" do
+        post :create, :user => @attr
+        response.should have_selector("title", :content => "Sign up")
+      end
+
+      # check that a failed signup attempt just re-renders the new user page
+      it "should render the 'new' page" do
+        post :create, :user => @attr
+        response.should render_template('new')
+      end
+
+    end
+
+    describe "success" do
+
+      before(:each) do
+        @attr = { :name => "New User", :email => "user@example.com",
+                  :password => "foobar", :password_confirmation => "foobar" }
+      end
+
+      it "should create a user" do
+        lambda do
+          post :create, :user => @attr
+        end.should change(User, :count).by(1)
+      end
+
+      it "should redirect to the user show page" do
+        post :create, :user => @attr
+        response.should redirect_to(user_path(assigns(:user)))
+      end
+
+      # test for a flash message on successful user signup
+      # using 'equals-tilde' =~ operator for comparing strings to regular expressions
+      # along with '/i' so the comparison is case-insensitive
+      it "should have a welcome message" do
+        post :create, :user => @attr
+        flash[:success].should =~ /welcome to the sample app/i
+      end
+
+    end
+
   end
 
 end

@@ -42,6 +42,10 @@
       <%= render 'layouts/header' %>
       <!-- section element containing site's main content -->
       <section class="round">
+        <!-- add the contents of the flash variable to the site layout -->
+        <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+        <% end %>
         <!-- "yield" is responsible for inserting the contents of ach page into the site-wide layout -->
         <%= yield %>
       </section>

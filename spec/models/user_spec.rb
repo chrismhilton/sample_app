@@ -22,7 +22,7 @@ describe User do
   # pending spec - a way to write a description of the application’s behaviour
   # without worrying yet about the implementation
   # useful as placeholders for tests we need to write in the future
-  it "should require a name (pending spec)"
+  it "this is how to define a pending spec"
 
   # test for the presence of the name attribute
   # using hash merge method to make name attribute invalid

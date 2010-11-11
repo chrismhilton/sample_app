@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
 
   # a class method that will return an authenticated user on password match, and nil otherwise
   # a class method is defined using the self keyword in the method definition;
-  # is attached to a class, rather than an instance of that class like "User.find"
+  # is attached to a class like "User.find", rather than an instance of that class
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
     return nil if user.nil?
