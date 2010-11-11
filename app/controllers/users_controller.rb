@@ -20,6 +20,9 @@ class UsersController < ApplicationController
       # redirect to the show page
       redirect_to @user
     else
+      # clear the password fields for failed submissions
+      @user.password = ""
+      @user.password_confirmation = ""
       @title = "Sign up"
       render 'new'
     end

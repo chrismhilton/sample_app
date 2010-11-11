@@ -44,7 +44,7 @@
       <section class="round">
         <!-- add the contents of the flash variable to the site layout -->
         <% flash.each do |key, value| %>
-          <div class="flash <%= key %>"><%= value %></div>
+          <%= content_tag(:div, value, :class => "flash #{key}") %>
         <% end %>
         <!-- "yield" is responsible for inserting the contents of ach page into the site-wide layout -->
         <%= yield %>
