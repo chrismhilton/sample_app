@@ -50,13 +50,22 @@ class User < ActiveRecord::Base
     encrypted_password == encrypt(submitted_password)
   end
 
-  # a class method that will return an authenticated user on password match, and nil otherwise
+  # a class method that will return an authenticated user based on password match, and nil otherwise
   # a class method is defined using the self keyword in the method definition;
   # is attached to a class like "User.find", rather than an instance of that class
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
     return nil if user.nil?
     return user if user.has_password?(submitted_password)
+  end
+
+  # a class method that will return an authenticated user based on user id & salt from cookie, and nil otherwise
+  def self.authenticate_with_salt(id, cookie_salt)
+    user = find_by_id(id)
+    (user && user.salt == cookie_salt) ? user : nil
+    # last line uses ternary operator and could also be written like this:
+    # return nil  if user.nil?
+    # return user if user.salt == cookie_salt
   end
 
   # private methods - used internally by the object and are not intended for public use

@@ -4,6 +4,13 @@ SampleApp::Application.routes.draw do
   # along with a large number of named routes for generating user URLs (users_path, user_path(1), new_user_path ...)
   resources :users
 
+  # add routes for only those session actions required (using options hash with key of :only and array of actions)
+  resources :sessions, :only => [:new, :create, :destroy]
+  # add named routes for signin and signout
+  match '/signup',  :to => 'users#new'
+  match '/signin',  :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
+
   # Original routes
   #get "pages/home"
   #get "pages/contact"

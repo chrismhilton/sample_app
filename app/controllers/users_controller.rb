@@ -15,6 +15,8 @@ class UsersController < ApplicationController
     # 'params' contains a hash of hashes
     @user = User.new(params[:user])
     if @user.save
+      # sign in the user automatically upeon sign up
+      sign_in @user
       # assign message to flash variable/hash for display to user
       flash[:success] = "Welcome to the Sample App!"
       # redirect to the show page

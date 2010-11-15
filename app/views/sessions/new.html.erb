@@ -1,0 +1,23 @@
+<h1>Sign in</h1>
+
+<!--
+when using a model 'form_for(@user)' allows Rails to infer
+that the action of the form should be to POST to the URL /users;
+without a model we need to indicate both the name of the response and the URL
+-->
+
+<%= form_for(:session, :url => sessions_path) do |f| %>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Sign in" %>
+  </div>
+<% end %>
+
+<p>New user? <%= link_to "Sign up now!", signup_path %></p>
