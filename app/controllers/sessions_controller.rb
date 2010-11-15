@@ -1,5 +1,12 @@
 class SessionsController < ApplicationController
 
+  # include SSL requirement plugin/gem
+  # which adds a declarative way of specifying that certain actions should only be allowed to run under SSL
+  #include SslRequirement if Rails.env.development?
+
+  # secure the Sessions controller new and create actions
+  #ssl_required :new, :create if Rails.env.development?
+
   def new
     @title = "Sign in"
   end

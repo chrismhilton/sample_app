@@ -11,6 +11,10 @@ gem 'sqlite3-ruby', '1.2.5', :group => :development #:require => 'sqlite3'
 # gem to handle each user’s Gravatar which is a 'globally recognized avatar'
 gem 'gravatar_image_tag', '0.1.0'
 
+# SSL requirement gem adds a declarative way of specifying that certain actions
+# should only be allowed to run under SSL, and if they're accessed without it, they should be redirected.
+#gem 'ssl_requirement', :group => :development
+
 #
 # include the gems for RSpec and the RSpec library specific to Rails
 #

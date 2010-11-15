@@ -6,16 +6,17 @@ module SessionsHelper
   # to make SessionsHelper functions accessible in controllers
   # we have included the module in the Application controller (app/controllers/application_controller.rb)
   
-  # using traditional Rails session (via the special session function)
-  # to store a remember token equal to the user's id
-  # session object makes the user id available from page to page by storing it in a cookie
-  #
-  # as using persistent sessions (signin status that lasts even after browser close)
+  # Use cookies utility supplied by Rails to maintain persistent sessions (20 year expiration)
+  # whereby signin status that lasts even after browser close;
   # we prevent a malicious user signing in as user with a remember_token equal to the user's id
   # by generating a unique, secure remember token for each user based on the user's salt and id;
   # moreover, a permanent remember token would also represent a security hole —
   # by inspecting the browser cookies, a malicious user could find the token and then use it to sign in
   # so we add a timestamp to the token, and reset the token every time the user signs into the application
+
+  # Could use traditional Rails session (via the special session function) instead of cookies
+  # so that users are automatically signed out when they close their browsers
+
   def sign_in(user)
     # use cookies utility supplied by Rails which can be used as if it were a hash
     # each element in the cookie is itself a hash of two elements, a value and an optional expires date
