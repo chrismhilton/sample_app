@@ -3,10 +3,6 @@
 <!--
 The presence of the do keyword indicates that form_for takes a block
 which has one variable called f for 'form'.
-In the first block, the form_for helper methods create the HTML needed
-to make a labeled text field element for setting the name attribute of a User model;
-including name attributes for each input that allow Rails to construct an
-initialization hash (via the params variable) for creating users using the values entered by the user.
 Requires a @user instance variable to be defined in the controller new action.
 Rails creates the form tag using the @user object: because every Ruby object
 knows its own class, Rails figures out that @user is of class User;
@@ -17,26 +13,11 @@ to issue an HTML POST request to the /users URL handled by the controller create
 -->
 <%= form_for(@user) do |f| %>
 
-  <!-- render the error messages partial passing the user within the 'object' variable -->
-  <%= render 'shared/error_messages', :object => f.object %>
+  <!-- render fields using partial explicitly passing pass the form variable f as a local variable -->
+  <%= render 'fields', :f => f %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirmation" %><br />
-    <%= f.password_field :password_confirmation %>
-  </div>
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
+
 <% end %>

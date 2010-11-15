@@ -1,0 +1,29 @@
+<!--
+
+user partial for the user edit/new
+
+In the field blocks, the form_for helper methods create the HTML needed
+to make a labeled text field element for setting the name attribute of a User model;
+including name attributes for each input that allow Rails to construct an
+initialization hash (via the params variable) for creating users using the values entered by the user.
+-->
+
+<!-- render the error messages partial passing the user within the 'object' variable -->
+<%= render 'shared/error_messages', :object => f.object %>
+
+<div class="field">
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.label :email %><br />
+  <%= f.text_field :email %>
+</div>
+<div class="field">
+  <%= f.label :password %><br />
+  <%= f.password_field :password %>
+</div>
+<div class="field">
+  <%= f.label :password_confirmation, "Confirmation" %><br />
+  <%= f.password_field :password_confirmation %>
+</div>

@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
 
   # before filters to specify that methods called before certain actions
-  before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
-  before_filter :correct_user, :only => [:edit, :update]
-  before_filter :admin_user,   :only => :destroy
+  before_filter :authenticate,   :only => [:index, :edit, :update, :destroy]
+  before_filter :correct_user,   :only => [:edit, :update]
+  before_filter :admin_user,     :only => :destroy
+  before_filter :signed_in_user, :only => [:new, :create]
   
   def new
     @user = User.new
@@ -25,7 +26,7 @@ class UsersController < ApplicationController
     # 'params' contains a hash of hashes
     @user = User.new(params[:user])
     if @user.save
-      # sign in the user automatically upeon sign up
+      # sign in the user automatically upon sign up
       sign_in @user
       # assign message to flash variable/hash for display to user
       flash[:success] = "Welcome to the Sample App!"
@@ -57,8 +58,13 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy # uses method chaining
-    flash[:success] = "User deleted."
+    user = User.find(params[:id])
+    if current_user?(user)
+      flash[:error] = "Can not delete your own user account."
+    else
+      User.find(params[:id]).destroy # uses method chaining
+      flash[:success] = "User deleted."
+    end
     redirect_to users_path
   end
 
@@ -76,6 +82,10 @@ class UsersController < ApplicationController
 
     def admin_user
       redirect_to(root_path) unless current_user.admin?
+    end
+
+    def signed_in_user
+      redirect_to(root_path) unless !signed_in?
     end
 
   end
