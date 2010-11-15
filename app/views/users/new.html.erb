@@ -17,8 +17,8 @@ to issue an HTML POST request to the /users URL handled by the controller create
 -->
 <%= form_for(@user) do |f| %>
 
-  <!-- render an error-messages partial -->
-  <%= render 'shared/error_messages' %>
+  <!-- render the error messages partial passing the user within the 'object' variable -->
+  <%= render 'shared/error_messages', :object => f.object %>
 
   <div class="field">
     <%= f.label :name %><br />

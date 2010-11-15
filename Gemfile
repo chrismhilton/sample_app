@@ -11,6 +11,9 @@ gem 'sqlite3-ruby', '1.2.5', :group => :development #:require => 'sqlite3'
 # gem to handle each user’s Gravatar which is a 'globally recognized avatar'
 gem 'gravatar_image_tag', '0.1.0'
 
+# gem to enable list paging
+gem 'will_paginate', '3.0.pre2'
+
 # SSL requirement gem adds a declarative way of specifying that certain actions
 # should only be allowed to run under SSL, and if they're accessed without it, they should be redirected.
 #gem 'ssl_requirement', :group => :development
@@ -21,9 +24,11 @@ gem 'gravatar_image_tag', '0.1.0'
 
 # include rspec in development mode for access to the RSpec-specific generators
 # include gem to annotate models in development (not needed in production applications)
+# include facker gem to all creation of sample users
 group :development do
   gem 'rspec-rails', '2.0.1'
   gem 'annotate-models', '1.0.4'
+  gem 'faker', '0.3.1'
 end
 
 # include rspec in test mode in order to run tests

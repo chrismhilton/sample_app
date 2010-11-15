@@ -26,7 +26,8 @@ class SessionsController < ApplicationController
       render 'new'
     else
       sign_in user
-      redirect_to user
+      # redirect using friendly forwarding method
+      redirect_back_or user
     end
 
   end
