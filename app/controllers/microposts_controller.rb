@@ -6,6 +6,18 @@ class MicropostsController < ApplicationController
   before_filter :authenticate
   before_filter :authorized_user, :only => :destroy
 
+  # action associated with nested route so that /users/1/microposts shows all the microposts for user 1
+  # using rescue to handle exception when user cannot be found
+  def index
+    user = User.find(params[:user_id]) rescue user
+    if !user.nil?
+      @microposts = user.microposts.paginate(:page => params[:page])
+      @title = "Microposts for #{user.name}"
+    else
+      redirect_to root_path
+    end
+  end
+
   def create
     @micropost  = current_user.microposts.build(params[:micropost])
     if @micropost.save

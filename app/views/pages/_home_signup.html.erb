@@ -1,0 +1,14 @@
+<!-- home page partial for users yet to sign in -->
+
+<h1>Sample App</h1>
+<p>
+  This is the home page for the
+  <a href="http://railstutorial.org/">Ruby on Rails Tutorial</a>
+  sample application.
+</p>
+
+<!--
+Rails helper "link_to" with options hashes,
+in this case used to add a couple of CSS classes to the anchor tag separated by a space
+-->
+<%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>

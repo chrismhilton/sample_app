@@ -30,6 +30,14 @@
     <%= render 'layouts/stylesheets' %>
 
     <!--
+    Include jQuery javascript libraries
+    before default javascripts (like application.js) below
+    -->
+    <%= javascript_include_tag "jquery-1.4.3.min.js" %>
+    <%= javascript_include_tag "jquery-ui-1.8.5.custom.min.js" %>
+    <%= javascript_include_tag "jquery.textareaCounter.plugin.js" %>
+
+    <!--
     Web browsers can’t send DELETE requests natively, so Rails fakes them with JavaScript;
     to get the delete links to work, we include the default Rails JavaScript libraries
     -->

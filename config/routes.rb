@@ -2,7 +2,10 @@ SampleApp::Application.routes.draw do
 
   # endows our sample application with all the actions needed for a RESTful Users resource (index, show, new ...)
   # along with a large number of named routes for generating user URLs (users_path, user_path(1), new_user_path ...)
-  resources :users
+  # included nested route so that /users/1/microposts shows all the microposts for user 1
+  resources :users do
+    resources :microposts, :only => :index
+  end
 
   # add routes for only those session actions required
   # using options hash with key of :only and array of actions
