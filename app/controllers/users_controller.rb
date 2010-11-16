@@ -1,6 +1,8 @@
+# Users controller class
+# able to access SessionsHelper methods as the module is included in the Application controller (app/controllers/application_controller.rb)
 class UsersController < ApplicationController
 
-  # before filters to specify that methods called before certain actions
+  # before filters to specify the methods to call before certain actions
   before_filter :authenticate,   :only => [:index, :edit, :update, :destroy]
   before_filter :correct_user,   :only => [:edit, :update]
   before_filter :admin_user,     :only => :destroy
@@ -19,6 +21,9 @@ class UsersController < ApplicationController
   def show
     # using the standard Rails 'params' object to retrieve the user id
     @user = User.find(params[:id])
+    # instance variable used for showing paged table of microposts
+    # using paginate to convert array into a WillPaginate::Collection object
+    @microposts = @user.microposts.paginate(:page => params[:page])
     @title = @user.name
   end
 
@@ -58,6 +63,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    # prevent a user from deleting their own user account
+    # as an alternative to using find, this statement would also work:
+    # if params[:id] == current_user.id.to_s
     user = User.find(params[:id])
     if current_user?(user)
       flash[:error] = "Can not delete your own user account."
@@ -69,11 +77,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-    def authenticate
-      # call session helper method to show message and redirect the user
-      deny_access unless signed_in?
-    end
 
     def correct_user
       @user = User.find(params[:id])

@@ -57,6 +57,12 @@ module SessionsHelper
     user == current_user
   end
 
+  # authenticate method used by both the user and micropost controllers
+  # to ensure that a user is signed in before they can maintain users and microposts
+  def authenticate
+    deny_access unless signed_in?
+  end
+
   # store the path of the request, put a message in flash[:notice] and then redirect to the signin page
   def deny_access
     store_location

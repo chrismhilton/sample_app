@@ -4,8 +4,14 @@ SampleApp::Application.routes.draw do
   # along with a large number of named routes for generating user URLs (users_path, user_path(1), new_user_path ...)
   resources :users
 
-  # add routes for only those session actions required (using options hash with key of :only and array of actions)
+  # add routes for only those session actions required
+  # using options hash with key of :only and array of actions
   resources :sessions, :only => [:new, :create, :destroy]
+
+  # add routes for microposts - small subset as the interface to the
+  # Microposts resource will run principally through the Users and Pages controllers
+  resources :microposts, :only => [:create, :destroy]
+
   # add named routes for signin and signout
   match '/signup',  :to => 'users#new'
   match '/signin',  :to => 'sessions#new'

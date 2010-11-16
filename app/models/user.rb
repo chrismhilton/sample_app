@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
   # also important for preventing a mass assignment vulnerability
   attr_accessible :name, :email, :password, :password_confirmation
 
+  # define model relations
+  # delete associated microposts when a user is deleted
+  has_many :microposts, :dependent => :destroy
+
   # email format regular expression (regex)
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
@@ -46,6 +50,14 @@ class User < ActiveRecord::Base
   # register a callback called encrypt_password by passing a symbol of that name to the before_save method
   # Active Record will automatically call the encrypt_password method before saving the record
   before_save :encrypt_password
+
+  # Return a micropost status feed
+  def feed
+    # The question mark ensures that id is properly escaped before being included in the
+    # underlying SQL query thereby avoiding a serious security hole called SQL injection;
+    # essentially equivalent to just returning microposts
+    Micropost.where("user_id = ?", id)
+  end
 
   # Return true if the user's password matches the submitted password.
   # Public interface to the private encryption machinery

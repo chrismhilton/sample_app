@@ -1,0 +1,14 @@
+<!--
+shared feed partial used in home page
+defers the feed item rendering to a feed item partial
+passing a collection which causes render to use the partial to render each item in the collection
+necessary to include the :partial parameter when setting :collection parameter
+-->
+
+<% unless @feed_items.empty? %>
+  <table class="microposts" summary="User microposts">
+    <%= render :partial => 'shared/feed_item', :collection => @feed_items %>
+  </table>
+  <%= will_paginate @feed_items %>
+<% end %>
+

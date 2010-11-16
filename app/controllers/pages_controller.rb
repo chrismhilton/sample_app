@@ -6,6 +6,12 @@ class PagesController < ApplicationController
     # any instance variable defined in the home action is automatically available in the "home.html.erb" view
     # instance variables are nil if not defined
     @title = "Home"
+    if signed_in?
+      # instance variable used by shared micropost partial displayed in home page
+      @micropost = Micropost.new
+      # instance variable used by shared feed partial displayed in home page
+      @feed_items = current_user.feed.paginate(:page => params[:page])
+    end
   end
 
   def contact

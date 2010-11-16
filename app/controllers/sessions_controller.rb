@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
       # user is not authenticated so set the title and re-render the signin form
       # since the session isn't an Active Record model can't use model error messages
       # so instead we've put a message in the flash shown via flash message display in the site layout
-      # flash :- use before a redirect; flash.now :- user before a render
+      # flash :- use before a redirect; flash.now :- use before a render
       flash.now[:error] = "Invalid email/password combination."
       @title = "Sign in"
       render 'new'
