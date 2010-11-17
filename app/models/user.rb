@@ -25,8 +25,25 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
 
   # define model relations
-  # delete associated microposts when a user is deleted
+  # use dependent to delete associated objects when a user is deleted
+  # use foreign_key when the field is not user_id (as presumed by Rails)
+  # use source when want to rename method to tell Rails the source
+  # ie. want user.following rather than user.followeds (based on followed_id)
   has_many :microposts, :dependent => :destroy
+
+  # users that this user is following : user.user_id => relationship.follower_id
+  has_many :relationships,         :foreign_key => "follower_id",
+                                   :class_name => "Relationship",
+                                   :dependent => :destroy
+  has_many :following,             :through => :relationships,
+                                   :source => :followed
+
+  # users that are following this user : user.user_id => relationship.followed_id
+  has_many :reverse_relationships, :foreign_key => "followed_id",
+                                   :class_name => "Relationship",
+                                   :dependent => :destroy
+  has_many :followers,             :through => :reverse_relationships,
+                                   :source => :follower
 
   # email format regular expression (regex)
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -53,16 +70,29 @@ class User < ActiveRecord::Base
 
   # Return a micropost status feed
   def feed
-    # The question mark ensures that id is properly escaped before being included in the
-    # underlying SQL query thereby avoiding a serious security hole called SQL injection;
-    # essentially equivalent to just returning microposts
-    Micropost.where("user_id = ?", id)
+    # defer to Micropost.from_users_followed_by
+    Micropost.from_users_followed_by(self)
   end
 
   # Return true if the user's password matches the submitted password.
   # Public interface to the private encryption machinery
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
+  end
+
+  # Checks to see if already following the 'followed' user
+  def following?(followed)
+    relationships.find_by_followed_id(followed)
+  end
+
+  # Create a following relationship so that the user is following the 'followed' user
+  def follow!(followed)
+    relationships.create!(:followed_id => followed.id)
+  end
+
+  # Delete a following relationship so that the user is no longer following the 'followed' user
+  def unfollow!(followed)
+    relationships.find_by_followed_id(followed).destroy
   end
 
   # a class method that will return an authenticated user based on password match, and nil otherwise

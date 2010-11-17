@@ -1,0 +1,11 @@
+<!--
+Partial for unfollowing a user
+using Ajax to send requests asynchronously to the server without leaving the page
+by including ':remote => true' (tells Rails to allow the form to be handled by JavaScript)
+-->
+
+<%= form_for current_user.relationships.find_by_followed_id(@user),
+             :html => { :method => :delete },
+             :remote => true do |f| %>
+  <div class="actions"><%= f.submit "Unfollow" %></div>
+<% end %>

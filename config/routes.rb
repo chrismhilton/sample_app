@@ -1,10 +1,22 @@
 SampleApp::Application.routes.draw do
 
-  # endows our sample application with all the actions needed for a RESTful Users resource (index, show, new ...)
+  # Application Routes
+  # to show all routes use 'rake routes' command
+  
+  # (1) endows our sample application with all the actions needed for a RESTful Users resource (index, show, new ...)
   # along with a large number of named routes for generating user URLs (users_path, user_path(1), new_user_path ...)
-  # included nested route so that /users/1/microposts shows all the microposts for user 1
+  # (2) included nested route so that "/users/[:user_id]/microposts" shows all the microposts for user 1
+  # which adds index action to microposts controller and user_microposts path
+  # (3) added following/followers actions to the Users controller giving us URLs like
+  # "/users/[:id]/following" and "/users/[:id]/followers" and paths following_user and followers_user
+  # member method means that the routes respond to URLs containing the user's id
+  # since both pages will be showing data, use get to arrange for the URLs to respond to GET requests
+  # using collection rather than member would respond to URLs like "/users/following" without user id
   resources :users do
     resources :microposts, :only => :index
+    member do
+      get :following, :followers
+    end
   end
 
   # add routes for only those session actions required
@@ -14,6 +26,9 @@ SampleApp::Application.routes.draw do
   # add routes for microposts - small subset as the interface to the
   # Microposts resource will run principally through the Users and Pages controllers
   resources :microposts, :only => [:create, :destroy]
+
+  # add routes for user relationships
+  resources :relationships, :only => [:create, :destroy]
 
   # add named routes for signin and signout
   match '/signup',  :to => 'users#new'

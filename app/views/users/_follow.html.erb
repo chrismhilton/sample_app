@@ -1,0 +1,11 @@
+<!--
+Partial for following a user
+using Ajax to send requests asynchronously to the server without leaving the page
+by including ':remote => true' (tells Rails to allow the form to be handled by JavaScript)
+-->
+
+<%= form_for current_user.relationships.build(:followed_id => @user.id),
+             :remote => true do |f| %>
+  <div><%= f.hidden_field :followed_id %></div>
+  <div class="actions"><%= f.submit "Follow" %></div>
+<% end %>
